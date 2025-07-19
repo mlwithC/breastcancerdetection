@@ -65,3 +65,24 @@ Compared the exiting model with The Decision Tree and The Random forest
 
  **Random Forest performed the best** with the highest accuracy.
 
+
+Model Accuracy Comparison (Breast Cancer Detection)
+
+| Model                     | Accuracy   |
+| ------------------------- | ---------- |
+| Decision Tree             | 94.73%     |
+| Random Forest             | 96.49%     |
+| K-Nearest Neighbors (KNN) | 94.73%     |
+| Support Vector Machine    | 97.36%     |
+
+ SVM currently has the highest accuracy among all tested models.
+
+*Trained and evaluated 4 ML models
+
+*Computed accuracy, confusion matrix, and classification report for each
+
+*Compared performance and updated results
+
+
+
+
