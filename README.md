@@ -81,7 +81,7 @@ Model Accuracy Comparison (Breast Cancer Detection)
 
 *Computed accuracy, confusion matrix, and classification report for each
 
-*Compared performance and updated results
+*Compared performance and updated results 
 
 
 
