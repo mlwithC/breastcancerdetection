@@ -84,5 +84,11 @@ Model Accuracy Comparison (Breast Cancer Detection)
 *Compared performance and updated results 
 
 
+Model Comparison & Results
+Today, we compared the performance of four machine learning models: Logistic Regression, Decision Tree, K-Nearest Neighbors, and Support Vector Machine (SVM). A comparison graph was plotted based on their accuracy scores. Among them, SVM achieved the highest accuracy.
+
+Model Export
+The best-performing model (SVM) was saved for future use and deployment.
+
 
 
