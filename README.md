@@ -90,5 +90,28 @@ Today, we compared the performance of four machine learning models: Logistic Reg
 Model Export
 The best-performing model (SVM) was saved for future use and deployment.
 
+## 🔧 Current Status & Known Issue
+
+We successfully trained and saved an SVM model for breast cancer classification using the Scikit-learn breast cancer dataset.
+
+###  What's Working:
+- Data loaded and preprocessed correctly (StandardScaler used).
+- SVM model trained and saved with `joblib`.
+- Basic Streamlit UI implemented for predictions.
+
+###  Issue Found:
+- When testing with both benign and malignant samples, the model predicted **both as malignant (0)**.
+- This suggests:
+  - The model may not have been trained correctly, or
+  - Labels may have been mismatched, or
+  - The model or scaler wasn't loaded or applied properly.
+
+### Next Steps:
+- Re-train the model ensuring labels are mapped correctly.
+- Re-check prediction logic in both Jupyter and Streamlit app.
+- Add selectable test samples (benign, malignant, or custom) to validate predictions.
 
 
+
+
+ 
