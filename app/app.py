@@ -1,66 +1,50 @@
 import streamlit as st
+import pickle
 import numpy as np
-import joblib
-from sklearn.datasets import load_breast_cancer
 
-# Load trained model
-model = joblib.load('svm_model.pkl')
+# Load the trained model
+with open("svm_model.pkl", "rb") as file:
+    model = pickle.load(file)
 
-# Load original dataset to get sample test cases
-data = load_breast_cancer()
-X = data.data
-y = data.target
-feature_names = data.feature_names
-
-# Get example cases from dataset
-malignant_example = X[np.where(y == 0)[0][0]]  # y=0 is malignant
-benign_example = X[np.where(y == 1)[0][0]]     # y=1 is benign
-
-# Title
 st.title("🔬 Breast Cancer Prediction App")
-st.markdown("Select a test case or enter custom values to predict **Benign** or **Malignant**.")
+st.markdown("Enter the 30 features to predict if the tumor is **Benign** or **Malignant**.")
 
-# Dropdown to select mode
-case_option = st.selectbox("Choose Test Mode:", ["Benign Test Case", "Malignant Test Case", "Custom Input"])
+# Define default benign and malignant samples
+benign_sample = [
+    12.45, 15.7, 82.57, 477.1, 0.1278, 0.17, 0.1578, 0.08089, 0.2087, 0.07613,
+    0.3345, 1.916, 2.261, 27.19, 0.00551, 0.03058, 0.04422, 0.01654, 0.01872, 0.005217,
+    14.5, 20.49, 95.29, 641.2, 0.1713, 0.3912, 0.4336, 0.1823, 0.3215, 0.1032
+]
 
-if case_option == "Benign Test Case":
-    st.subheader("🟢 Benign Case Input")
-    input_data = benign_example
-    for i, val in enumerate(input_data):
-        st.write(f"**{feature_names[i]}:** {val:.2f}")
+malignant_sample = [
+    17.99, 10.38, 122.8, 1001.0, 0.1184, 0.2776, 0.3001, 0.1471, 0.2419, 0.07871,
+    1.095, 0.9053, 8.589, 153.4, 0.006399, 0.04904, 0.05373, 0.01587, 0.03003, 0.006193,
+    25.38, 17.33, 184.6, 2019.0, 0.1622, 0.6656, 0.7119, 0.2654, 0.4601, 0.1189
+]
 
-elif case_option == "Malignant Test Case":
-    st.subheader("🔴 Malignant Case Input")
-    input_data = malignant_example
-    for i, val in enumerate(input_data):
-        st.write(f"**{feature_names[i]}:** {val:.2f}")
+# Initialize session state for inputs
+if "input_data" not in st.session_state:
+    st.session_state.input_data = [0.0] * 30
 
-else:
-    st.subheader("✍️ Custom Input Features")
-    input_data = []
-    for i in range(len(feature_names)):
-        val = st.slider(
-            f"{feature_names[i]}",
-            float(np.min(X[:, i])),
-            float(np.max(X[:, i])),
-            float(np.mean(X[:, i])),
-            key=f"custom_{i}"
-        )
-        input_data.append(val)
-    input_data = np.array(input_data)
+# Fill sample buttons
+col1, col2 = st.columns(2)
+with col1:
+    if st.button("Use Benign Sample"):
+        st.session_state.input_data = benign_sample
+with col2:
+    if st.button("Use Malignant Sample"):
+        st.session_state.input_data = malignant_sample
 
-# Prediction
-input_reshaped = input_data.reshape(1, -1)
-prediction = model.predict(input_reshaped)[0]
+# Input fields
+input_data = []
+for i in range(30):
+    val = st.number_input(f"Feature {i+1}", value=float(st.session_state.input_data[i]), format="%.5f")
+    input_data.append(val)
 
-# Result Display
-st.subheader("📊 Prediction Result")
-if prediction == 0:
-    st.error("🔴 Prediction: **Malignant** (Cancer Present)")
-else:
-    st.success("🟢 Prediction: **Benign** (No Cancer)")
-
-# Optional Debug: Show raw input values
-with st.expander("📄 Show Raw Input Values"):
-    for i, val in enumerate(input_data):
-        st.write(f"{feature_names[i]}: {val:.2f}")
+# Predict button
+if st.button("🔍 Predict"):
+    prediction = model.predict([input_data])[0]
+    if prediction == 1:
+        st.success("🟢 The tumor is **Benign**.")
+    else:
+        st.error("🔴 The tumor is **Malignant**.")

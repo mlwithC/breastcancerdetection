@@ -2,7 +2,7 @@
 
 This is a beginner ML project where I explore how to predict if a tumor is benign or malignant using Logistic Regression and other models.
 
->  Status: In Progress
+>  Status: Done
 
 ---
 
@@ -110,6 +110,15 @@ We successfully trained and saved an SVM model for breast cancer classification 
 - Re-train the model ensuring labels are mapped correctly.
 - Re-check prediction logic in both Jupyter and Streamlit app.
 - Add selectable test samples (benign, malignant, or custom) to validate predictions.
+
+
+Fixes Done:
+Rechecked label mapping
+Validated predictions in Jupyter before deploying
+Ensured correct order of scaler and model usage in Streamlit
+
+SUCESSFULLY CREATED THE APP AND THE RESULTS WERE AS PER EXPECTED
+
 
 
 
