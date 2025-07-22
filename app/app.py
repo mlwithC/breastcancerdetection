@@ -6,7 +6,7 @@ import numpy as np
 with open("svm_model.pkl", "rb") as file:
     model = pickle.load(file)
 
-st.title("🔬 Breast Cancer Prediction App")
+st.title(" Breast Cancer Prediction App")
 st.markdown("Enter the 30 features to predict if the tumor is **Benign** or **Malignant**.")
 
 # Define default benign and malignant samples
@@ -45,6 +45,6 @@ for i in range(30):
 if st.button("🔍 Predict"):
     prediction = model.predict([input_data])[0]
     if prediction == 1:
-        st.success("🟢 The tumor is **Benign**.")
+        st.success(" The tumor is **Benign**.")
     else:
-        st.error("🔴 The tumor is **Malignant**.")
+        st.error(" The tumor is **Malignant**.")
